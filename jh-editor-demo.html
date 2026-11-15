@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JH AI Creator — এডিটর স্টুডিও ডেমো</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#0b0d26;--card:#151945;--card2:#1b2058;--tx:#eeeefc;--mu:#a3a6d0;--bd:#2b2f61;--pu:#8d63ff;--te:#3fd0c9;--g:#5fe0b0;--gb:#0f3a2d;--y:#ffd36b;--yb:#3d3010;--r:#ff9a93;--rb:#40181a}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f3fb;--card:#fff;--card2:#f0eefb;--tx:#14163a;--mu:#5d6086;--bd:#dedcf0;--pu:#6d3fd6;--te:#0b8a8a;--g:#12805c;--gb:#dcf5ea;--y:#8a5a00;--yb:#fff0c9;--r:#b3261e;--rb:#fde0de}}
+:root[data-theme="light"]{--bg:#f4f3fb;--card:#fff;--card2:#f0eefb;--tx:#14163a;--mu:#5d6086;--bd:#dedcf0;--pu:#6d3fd6;--te:#0b8a8a;--g:#12805c;--gb:#dcf5ea;--y:#8a5a00;--yb:#fff0c9;--r:#b3261e;--rb:#fde0de}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,-apple-system,"Noto Sans Bengali","Segoe UI",sans-serif}
+.w{max-width:560px;margin:0 auto;padding:12px}
+header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#1b1f5e,#6d3fd6);color:#3fd0c9;display:grid;place-items:center;font-weight:800}
+h1{font-size:16px;margin:0}.sp{flex:1}.mu{color:var(--mu);font-size:12px}
+button,select,textarea{font:inherit;color:var(--tx)}button{cursor:pointer}
+.sm{border:1px solid var(--bd);background:var(--card);border-radius:9px;padding:6px 10px}
+.pill{font-size:11px;font-weight:700;border-radius:999px;padding:3px 10px;background:var(--yb);color:var(--y)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px;margin-bottom:10px}
+.card h2{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--mu);margin:0 0 8px}
+.pv{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;border:2px solid var(--pu)}
+.sc{position:absolute;inset:0;transform-origin:center;background:linear-gradient(180deg,#f7b267 0%,#c0577a 45%,#2b2f77 100%)}
+.sc i{position:absolute;bottom:0;border-radius:50% 50% 0 0;background:#14163a}
+.vg{position:absolute;inset:0;background:radial-gradient(circle,transparent 40%,#000 100%);pointer-events:none}
+.tag{position:absolute;left:8px;top:8px;background:#000b;color:#fff;font-size:11px;padding:3px 8px;border-radius:8px}
+.tag2{left:auto;right:8px;color:var(--y)}
+.cap{position:absolute;left:0;right:0;bottom:8px;text-align:center;color:#fff;font-size:13px;text-shadow:0 1px 3px #000;padding:0 10px}
+.ctl{display:flex;align-items:center;gap:8px;margin-top:8px}
+.play{width:38px;height:38px;border-radius:50%;border:0;background:var(--pu);color:#fff;font-size:15px}
+input[type=range]{width:100%;accent-color:var(--pu)}
+.t{font-variant-numeric:tabular-nums;font-size:12px;color:var(--mu);white-space:nowrap}
+.sl{display:grid;grid-template-columns:90px 1fr 46px;gap:6px;align-items:center;margin:4px 0}
+.sl span:last-child{text-align:right;font-size:12px;color:var(--te)}
+select,textarea{width:100%;padding:8px;border-radius:10px;border:1px solid var(--bd);background:var(--card2)}
+textarea{min-height:64px;resize:vertical}
+label.l{display:block;font-size:12px;color:var(--mu);margin:8px 0 3px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--bd);background:var(--card2);border-radius:999px;padding:6px 12px}
+.chip.on{background:var(--pu);border-color:var(--pu);color:#fff}
+.cta{width:100%;border:0;border-radius:14px;padding:14px;font-weight:700;color:#fff;background:linear-gradient(90deg,#4b2bb0,#8d3fd6 60%,#0fa3a3);margin:4px 0 10px}
+.res{border-radius:16px;padding:12px;margin-bottom:10px}
+.res.G{background:var(--gb);color:var(--g)}.res.Y{background:var(--yb);color:var(--y)}.res.R{background:var(--rb);color:var(--r)}
+.res h3{margin:0 0 4px;font-size:17px}.res ul{margin:6px 0;padding-left:18px}
+.b{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:2px 9px}
+.b.G{background:var(--gb);color:var(--g)}.b.Y{background:var(--yb);color:var(--y)}.b.R{background:var(--rb);color:var(--r)}
+.row{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.disc{font-size:11px;color:var(--mu);text-align:center;margin:10px 0 24px}
+.ok{background:var(--card);border:1px solid var(--te);border-radius:12px;padding:10px;margin-top:8px}
+.hid{display:none}
+.top{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px}.top button{border:1px solid var(--bd);background:var(--card2);border-radius:10px;padding:9px 2px;font-size:11px;font-weight:600}.top .up{background:var(--pu);color:#fff;border-color:var(--pu)}.top .so{opacity:.55}
+.sc video,.sc img.m{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:none}
+.has .sc{background:#000}.has .sc i{display:none}
+.bar{height:14px;border-radius:8px;background:var(--card2);position:relative;overflow:hidden;margin-bottom:6px}#rg{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,#e8453c,#8d3fd6,#0fa3a3)}
+.msg{font-size:12px}
+.sb{height:22px;border-radius:8px;background:var(--card2);position:relative;overflow:hidden}.sb i{position:absolute;top:0;bottom:0;border-right:2px solid var(--bg)}.sb i.k{background:linear-gradient(90deg,#8d3fd6,#0fa3a3)}.sb i.d{background:repeating-linear-gradient(45deg,var(--rb),var(--rb) 4px,transparent 4px,transparent 8px)}.sg{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid var(--bd);font-size:12px}.msg.on{padding:8px 10px;border-radius:10px;background:var(--yb);color:var(--y);margin-bottom:8px}.msg.ok{background:var(--gb);color:var(--g)}
+.gal{display:flex;gap:6px;overflow-x:auto}.gal img{height:56px;border-radius:8px;border:1px solid var(--bd);cursor:pointer}
+</style>
+</head>
+<body>
+<div class="w">
+<header><div class="logo">JH</div><div><h1>JH AI Creator <span class="pill">DEMO</span></h1><div class="mu" id="sub"></div></div><div class="sp"></div><button class="sm" id="lang">EN</button></header>
+
+<div class="card">
+<div class="top" id="top"></div><div id="msg" class="msg"></div><div class="pv" id="pv"><div class="sc" id="sc"><i style="left:18%;width:22%;height:46%"></i><i style="left:52%;width:26%;height:56%"></i><video id="vd" playsinline preload="metadata"></video><img id="im" class="m" alt=""></div><div class="vg" id="vg"></div><div class="tag" id="tag"></div><div class="tag tag2" id="res"></div><div class="cap" id="cap"></div></div>
+<div class="ctl"><button class="play" id="play">▶</button><input type="range" id="seek" min="0" max="60" step="0.1" value="0"><span class="t" id="tm"></span></div>
+</div>
+
+<div class="card"><h2 id="h_trim"></h2>
+<div class="bar"><div id="rg"></div></div><div class="sl"><span id="l_in"></span><input type="range" id="tin" min="0" max="59" step="0.1" value="0"><span id="v_in"></span></div>
+<div class="sl"><span id="l_out"></span><input type="range" id="tout" min="1" max="60" step="0.1" value="60"><span id="v_out"></span></div>
+</div>
+
+<svg width="0" height="0" style="position:absolute"><filter id="toon"><feComponentTransfer><feFuncR type="discrete" tableValues="0 .25 .5 .75 1"/><feFuncG type="discrete" tableValues="0 .25 .5 .75 1"/><feFuncB type="discrete" tableValues="0 .25 .5 .75 1"/></feComponentTransfer></filter></svg>
+<div class="card"><h2 id="h_cut"></h2><div class="sb" id="sb"></div><div class="row" style="margin-top:8px"><button class="sm" id="sp"></button><button class="sm" id="spr"></button><span class="t" id="kt"></span></div><div id="sl2"></div></div>
+<div class="card"><h2 id="h_sty"></h2><div class="chips"><button class="chip on" id="s0"></button><button class="chip" id="s1"></button></div><div class="mu" id="sn" style="margin-top:6px"></div></div>
+<div class="card"><div class="row"><h2 id="h_col" style="margin:0"></h2><button class="sm" id="rc"></button></div>
+<div id="sliders"></div></div>
+
+<div class="card"><h2 id="h_src"></h2>
+<label class="l" id="l_clip"></label><select id="clip"></select>
+<label class="l" id="l_logo"></label><select id="logo"></select></div>
+
+<div class="card"><h2 id="h_vo"></h2>
+<textarea id="script"></textarea>
+<label class="l" id="l_voice"></label><div class="chips" id="voices"></div>
+<label class="l" id="l_vsrc"></label><select id="vsrc"></select>
+<div class="mu" id="vnote" style="margin-top:6px"></div></div>
+
+<div class="card"><h2 id="h_mu"></h2><select id="music"></select>
+<div class="ok" id="minfo"></div></div>
+
+<div class="card"><h2 id="h_ex"></h2><select id="pf"></select><label class="l">Format</label><select id="fmt"><option>16:9</option><option>9:16</option><option>1:1</option></select></div>
+<input type="file" id="fv" accept="video/*" hidden><input type="file" id="fi" accept="image/*" multiple hidden>
+<div class="card" id="gcard"><h2 id="gh"></h2><div class="gal" id="gal"></div></div>
+<button class="cta" id="run"></button>
+<div id="out"></div>
+<div class="disc" id="disc"></div>
+</div>
+<script>
+var L='bn',$=function(i){return document.getElementById(i)};
+var PF=['Facebook Reels','Facebook Videos','TikTok','YouTube Shorts','YouTube Videos'];
+var S=[['br',100,50,150],['ct',100,50,150],['sa',100,0,200],['wm',0,-50,50],['vi',30,0,100],['zm',100,100,200]];
+var V={br:100,ct:100,sa:100,wm:0,vi:30,zm:100},voice=0,playing=0,timer;
+var VN=['Kore','Aoede','Zephyr','Fenrir','Charon','Puck'];
+// music: id, platforms allowed, attribution, status
+var M=[{id:'none',st:'G',pf:[]},{id:'piano',st:'G',pf:PF,at:0},{id:'strings',st:'G',pf:['Facebook Reels','Facebook Videos','YouTube Shorts','YouTube Videos'],at:1},{id:'upl',st:'Y',pf:[]},{id:'flag',st:'R',pf:[]}];
+var T={
+bn:{sub:'এডিটর স্টুডিও (ডেমো)',tag:'ডেমো নমুনা দৃশ্য',h_trim:'টাইমলাইন ও ট্রিম',l_in:'শুরু',l_out:'শেষ',h_col:'কালার অ্যাডজাস্ট',rc:'রিসেট',
+sl:{br:'ব্রাইটনেস',ct:'কনট্রাস্ট',sa:'স্যাচুরেশন',wm:'ওয়ার্মথ',vi:'ভিনিয়েট',zm:'জুম'},
+h_src:'ফুটেজ ও মালিকানা ঘোষণা',l_clip:'এই ক্লিপের উৎস',l_logo:'তৃতীয় পক্ষের লোগো/ট্রেডমার্ক',
+clip:{own:'আমার নিজের তৈরি / AI-জেনারেটেড',lic:'লাইসেন্সড (রশিদ সংরক্ষিত)',pd:'পাবলিক ডোমেইন (যাচাইকৃত)',unk:'উৎস অজানা / অযাচাইকৃত',tp:'অন্যের নাটক/ভিডিও (অনুমতি নেই)'},
+logo:{no:'নেই',ok:'আছে, অনুমতি আছে',bad:'আছে, অনুমতি নেই'},
+h_vo:'ভয়েসওভার স্ক্রিপ্ট',script:'এখানে নিজের লেখা স্ক্রিপ্ট দিন…',l_voice:'ভয়েস (ডেমো, আসল অডিও তৈরি হয় না)',l_vsrc:'ভয়েসের উৎস',
+vsrc:{ai:'AI সিনথেটিক ভয়েস (সাধারণ)',own:'আমার নিজের রেকর্ডিং',perm:'অন্য ব্যক্তির ভয়েস, লিখিত অনুমতি আছে',clone:'কারও ভয়েস নকল, অনুমতি নেই'},
+vnote:'ভবিষ্যতে একটি যাচাইকৃত TTS প্রোভাইডার যুক্ত হবে। এখন শুধু UI ডেমো।',
+h_mu:'ব্যাকগ্রাউন্ড মিউজিক (লাইসেন্সড লাইব্রেরি)',
+music:{none:'মিউজিক নেই',piano:'Calm Piano (নমুনা)',strings:'Drama Strings (নমুনা)',upl:'আমার আপলোড: লাইসেন্স অযাচাইকৃত',flag:'আপলোড: অননুমোদিত বলে চিহ্নিত (ডেমো)'},
+mi:{none:'কোনো মিউজিক নেই, মিউজিক-ঝুঁকি নেই।',ok:'বাণিজ্যিক ব্যবহার: হ্যাঁ। অনুমোদিত প্ল্যাটফর্ম:',at:'অ্যাট্রিবিউশন: আবশ্যক',na:'অ্যাট্রিবিউশন: লাগবে না',unv:'লাইসেন্স অযাচাইকৃত। "কপিরাইট-ফ্রি" বলা হবে না।',bad:'এই অ্যাসেট অননুমোদিত হিসেবে চিহ্নিত। এক্সপোর্ট ব্লক হবে।'},
+h_ex:'পাবলিশ প্ল্যাটফর্ম',run:'কপিরাইট রিভিউ ও এক্সপোর্ট',
+G:'গ্রিন',Y:'ইয়েলো',R:'রেড',
+gt:'প্রাপ্ত তথ্য আপনার প্রকাশের অধিকার সমর্থন করে।',yt:'কিছু তথ্য অতিরিক্ত যাচাই দরকার। যাচাই না করে এক্সপোর্ট করলে ঝুঁকি আপনার।',rt:'এক্সপোর্ট ব্লকড। নিচের অ্যাসেট সমাধান করুন।',
+ex:'ডেমো এক্সপোর্ট করুন',ex2:'ডেমো: কোনো আসল ভিডিও ফাইল তৈরি হয়নি। আসল রেন্ডার (FFmpeg ওয়ার্কার) পরের ধাপে।',
+w:{clip:'ফুটেজ',logo:'লোগো',voice:'ভয়েস',music:'মিউজিক'},
+m:{unk:'উৎস অযাচাইকৃত',tp:'অনুমতি ছাড়া তৃতীয় পক্ষের কনটেন্ট',logo:'ট্রেডমার্ক অনুমতি নেই',perm:'লিখিত অনুমতি সংরক্ষণ করুন',clone:'অনুমতি ছাড়া ভয়েস নকল নিষিদ্ধ',mus:'মিউজিক লাইসেন্স যাচাই করুন',mflag:'অননুমোদিত মিউজিক',mpf:'এই প্ল্যাটফর্ম লাইসেন্সে নেই',att:'ক্রেডিট দিন',ok:'ঠিক আছে'},
+disc:'এটি অভ্যন্তরীণ ঝুঁকি মূল্যায়ন, আইনি নিশ্চয়তা নয়। কোনো ভিডিও ক্লেইম-মুক্ত হবে এমন প্রতিশ্রুতি নেই। এই টুলে কপিরাইট ডিটেকশন এড়ানোর কোনো ফিচার নেই।',cap:'আপনার স্ক্রিপ্ট এখানে ক্যাপশন হিসেবে দেখাবে'},
+en:{sub:'Editor Studio (Demo)',tag:'Demo sample scene',h_trim:'Timeline & Trim',l_in:'Start',l_out:'End',h_col:'Adjust Color',rc:'Reset',
+sl:{br:'Brightness',ct:'Contrast',sa:'Saturation',wm:'Warmth',vi:'Vignette',zm:'Zoom'},
+h_src:'Footage & Ownership Declaration',l_clip:'Source of this clip',l_logo:'Third-party logos / trademarks',
+clip:{own:'Created by me / AI-generated',lic:'Licensed (receipt saved)',pd:'Public domain (verified)',unk:'Unknown / unverified source',tp:'Someone else’s drama/video (no permission)'},
+logo:{no:'None',ok:'Present, permission granted',bad:'Present, no permission'},
+h_vo:'Voiceover Script',script:'Write your own script here…',l_voice:'Voice (demo, no real audio generated)',l_vsrc:'Voice source',
+vsrc:{ai:'AI synthetic voice (generic)',own:'My own recording',perm:'Another person’s voice, written permission',clone:'Imitating someone’s voice, no permission'},
+vnote:'A verified TTS provider will be connected later. UI demo only for now.',
+h_mu:'Background Music (licensed library)',
+music:{none:'No music',piano:'Calm Piano (sample)',strings:'Drama Strings (sample)',upl:'My upload: license unverified',flag:'Upload: flagged unauthorized (demo)'},
+mi:{none:'No music, no music risk.',ok:'Commercial use: yes. Allowed platforms:',at:'Attribution: required',na:'Attribution: not required',unv:'License unverified. Will not be called "copyright-free".',bad:'This asset is flagged unauthorized. Export will be blocked.'},
+h_ex:'Publish platform',run:'Copyright Review & Export',
+G:'GREEN',Y:'YELLOW',R:'RED',
+gt:'Available evidence supports your right to publish.',yt:'Some information needs additional verification. Exporting without verifying is at your own risk.',rt:'Export blocked. Resolve the assets below.',
+ex:'Demo Export',ex2:'Demo: no real video file was created. Real rendering (FFmpeg worker) comes in a later phase.',
+w:{clip:'Footage',logo:'Logo',voice:'Voice',music:'Music'},
+m:{unk:'Source unverified',tp:'Third-party content without permission',logo:'No trademark permission',perm:'Store the written permission',clone:'Voice imitation without permission is prohibited',mus:'Verify the music license',mflag:'Unauthorized music',mpf:'Platform not covered by license',att:'Add credit',ok:'OK'},
+disc:'This is an internal risk assessment, not legal assurance. No video is promised to be claim-free. This tool has no feature to evade copyright detection.',cap:'Your script appears here as a caption'}};
+function t(){return T[L]}
+function fill(id,o,sel){$(id).innerHTML=Object.keys(o).map(function(k){return '<option value="'+k+'"'+(k==sel?' selected':'')+'>'+o[k]+'</option>'}).join('')}
+function fmt(s){s=Math.max(0,s);var m=Math.floor(s/60),x=(s%60).toFixed(1);return (m<10?'0':'')+m+':'+(x<10?'0':'')+x}
+function build(){
+var x=t();document.documentElement.lang=L;$('lang').textContent=L=='bn'?'EN':'বাংলা';
+['sub','h_trim','l_in','l_out','h_col','rc','h_src','l_clip','l_logo','h_vo','l_voice','l_vsrc','vnote','h_mu','h_ex','run','disc','tag'].forEach(function(k){$(k).textContent=x[k]});
+$('script').placeholder=x.script;$('cap').textContent=$('script').value||x.cap;
+var ck=$('clip').value||'own',lg=$('logo').value||'no',vs=$('vsrc').value||'ai',mu=$('music').value||'piano',pf=$('pf').value||PF[0];
+fill('clip',x.clip,ck);fill('logo',x.logo,lg);fill('vsrc',x.vsrc,vs);fill('music',x.music,mu);
+$('pf').innerHTML=PF.map(function(p){return '<option'+(p==pf?' selected':'')+'>'+p+'</option>'}).join('');
+$('sliders').innerHTML=S.map(function(s){return '<div class="sl"><span>'+x.sl[s[0]]+'</span><input type="range" data-k="'+s[0]+'" min="'+s[2]+'" max="'+s[3]+'" value="'+V[s[0]]+'"><span id="v_'+s[0]+'">'+V[s[0]]+(s[0]=='wm'?'':'%')+'</span></div>'}).join('');
+$('voices').innerHTML=VN.map(function(n,i){return '<button class="chip'+(i==voice?' on':'')+'" data-v="'+i+'">'+n+'</button>'}).join('');
+document.querySelectorAll('input[data-k]').forEach(function(e){e.oninput=function(){V[e.dataset.k]=+e.value;$('v_'+e.dataset.k).textContent=e.value+(e.dataset.k=='wm'?'':'%');look()}});
+document.querySelectorAll('.chip').forEach(function(e){e.onclick=function(){voice=+e.dataset.v;build()}});
+$('res').textContent='';$('out').innerHTML='';minfo();look();times();tagset();
+}
+function look(){
+$('sc').style.filter='brightness('+V.br/100+') contrast('+V.ct/100+') saturate('+V.sa/100+') hue-rotate('+(-V.wm*0.6)+'deg) sepia('+Math.max(0,V.wm)/100+')'+(toon?' saturate(1.4) contrast(1.15) url(#toon)':'');
+$('sc').style.transform='scale('+V.zm/100+')';$('vg').style.opacity=V.vi/100*0.9}
+function minfo(){var x=t(),m=M.filter(function(a){return a.id==$('music').value})[0],h;
+if(m.id=='none')h=x.mi.none;else if(m.st=='R')h=x.mi.bad;else if(m.st=='Y')h=x.mi.unv;
+else h=x.mi.ok+' '+m.pf.join(', ')+'. '+(m.at?x.mi.at:x.mi.na);
+$('minfo').innerHTML='<span class="b '+m.st+'">'+x[m.st]+'</span> '+h}
+function times(){var a=+$('tin').value,b=+$('tout').value;$('v_in').textContent=fmt(a);rng(a,b);$('v_out').textContent=fmt(b);
+$('seek').min=a;$('seek').max=b;if(+$('seek').value<a)$('seek').value=a;if(+$('seek').value>b)$('seek').value=b;$('tm').textContent=fmt(+$('seek').value)+' / '+fmt(b)}
+$('tin').oninput=function(){if(+$('tin').value>=+$('tout').value-1)$('tin').value=+$('tout').value-1;times()};
+$('tout').oninput=function(){if(+$('tout').value<=+$('tin').value+1)$('tout').value=+$('tin').value+1;times()};
+$('seek').oninput=times;
+$('play').onclick=function(){playing=!playing;$('play').textContent=playing?'❚❚':'▶';clearInterval(timer);
+if(playing)timer=setInterval(function(){var s=$('seek'),n=+s.value+0.1;if(n>=+s.max){n=+$('tin').value;playing=0;$('play').textContent='▶';clearInterval(timer)}s.value=n;times()},100)};
+$('rc').onclick=function(){V={br:100,ct:100,sa:100,wm:0,vi:30,zm:100};build()};
+['script'].forEach(function(i){$(i).oninput=function(){$('cap').textContent=$('script').value||t().cap}});
+$('music').onchange=function(){minfo();$('out').innerHTML=''};
+['clip','logo','vsrc','pf'].forEach(function(i){$(i).onchange=function(){$('out').innerHTML=''}});
+$('lang').onclick=function(){L=L=='bn'?'en':'bn';build()};
+function ev(){var x=t(),pf=$('pf').value,R=[],Y=[],G=[];
+function add(l,k,lab){l.push('<b>'+lab+':</b> '+x.m[k])}
+var c=$('clip').value;if(c=='tp')add(R,'tp',x.w.clip);else if(c=='unk')add(Y,'unk',x.w.clip);else G.push(x.w.clip);
+var g=$('logo').value;if(g=='bad')add(R,'logo',x.w.logo);else G.push(x.w.logo);
+var v=$('vsrc').value;if(v=='clone')add(R,'clone',x.w.voice);else if(v=='perm')add(Y,'perm',x.w.voice);else G.push(x.w.voice);
+var m=M.filter(function(a){return a.id==$('music').value})[0];
+if(m.st=='R')add(R,'mflag',x.w.music);else if(m.st=='Y')add(Y,'mus',x.w.music);
+else if(m.id!='none'){if(m.pf.indexOf(pf)<0)add(Y,'mpf',x.w.music);else if(m.at)add(Y,'att',x.w.music);else G.push(x.w.music)}
+if(toon&&$('clip').value!='own'&&!R.length)Y.push('<b>'+n().sty+':</b> '+n().styn);var c2=R.length?'R':(Y.length?'Y':'G');return {c:c2,R:R,Y:Y,pf:pf}}
+$('run').onclick=function(){var x=t(),r=ev();
+var li=function(a){return a.length?'<ul>'+a.map(function(i){return '<li>'+i+'</li>'}).join('')+'</ul>':''};
+var h='<div class="res '+r.c+'"><h3>'+x[r.c]+' · '+r.pf+'</h3>'+x[r.c.toLowerCase()+'t']+li(r.R)+li(r.Y)+'</div>';
+if(r.c!='R')h+='<button class="cta" id="ex">'+x.ex+'</button><div class="mu" id="ex2"></div>';
+$('out').innerHTML=h;$('res').innerHTML='<span class="b '+r.c+'">'+x[r.c]+'</span>';
+if($('ex'))$('ex').onclick=function(){$('ex2').textContent=x.ex2};
+$('out').scrollIntoView({behavior:'smooth',block:'nearest'})};
+var DUR=60,hasV=0,info='',G=[],vd=$('vd'),im=$('im');
+var N={bn:{uv:'ভিডিও আপলোড',up:'ছবি আপলোড',ga:'গ্যালারি',cp:'ফ্রেম ক্যাপচার',gn:'AI জেনারেট',av:'AI ভয়েস',rs:'রিসেট',pv:'প্রোভাইডার',soon:'এই ফিচার পরের ধাপে আসবে, এখনো আসল প্রোভাইডার যুক্ত নয়।',tp:'“অন্যের নাটক/ভিডিও” ঘোষণা করা ক্লিপ আপলোড করা যাবে না। উৎস ঘোষণা সঠিকভাবে বদলান।',unk:'উৎস অযাচাইকৃত, রিভিউতে YELLOW আসবে।',ok:'লোড হয়েছে। ফাইল শুধু আপনার ব্রাউজারে আছে, সার্ভারে যায়নি।',err:'ফাইল লোড হয়নি। MP4/MOV বা JPG/PNG চেষ্টা করুন।',big:'ফাইল বড়, সীমা ২০০ MB।',nof:'আগে ভিডিও আপলোড করুন।',cap:'ফ্রেম গ্যালারিতে যোগ হয়েছে।',gal:'গ্যালারি (ক্যাপচার ও ছবি)',ph:'ডেমো নমুনা দৃশ্য'},en:{uv:'Upload Video',up:'Upload Photos',ga:'Gallery',cp:'Capture Frame',gn:'AI Generate',av:'AI Voice',rs:'Reset',pv:'Provider',soon:'Coming in a later phase, no real provider is connected yet.',tp:'Clips declared as “someone else’s drama/video” cannot be uploaded. Fix the source declaration.',unk:'Source unverified, review will show YELLOW.',ok:'Loaded. The file stays in your browser only, nothing was sent to a server.',err:'File failed to load. Try MP4/MOV or JPG/PNG.',big:'File too large, limit is 200 MB.',nof:'Upload a video first.',cap:'Frame added to gallery.',gal:'Gallery (captures & photos)',ph:'Demo sample scene'}};
+function n(){return N[L]}
+function say(s,ok){var m=$('msg');m.textContent=s;m.className='msg on'+(ok?' ok':'')}
+function rng(a,b){$('rg').style.left=a/DUR*100+'%';$('rg').style.width=(b-a)/DUR*100+'%'}
+function tagset(){var x=n();$('tag').textContent=info||x.ph;$('gh').textContent=x.gal;lab();
+var B=[['uv','up'],['up','up'],['ga',''],['cp',''],['gn','so'],['av','so'],['rs',''],['pv','so']];
+$('top').innerHTML=B.map(function(b){return '<button class="'+b[1]+'" data-a="'+b[0]+'">'+x[b[0]]+(b[0]=='ga'?' ('+G.length+')':'')+'</button>'}).join('');
+document.querySelectorAll('#top button').forEach(function(e){e.onclick=function(){act(e.dataset.a)}})}
+function chk(){if($('clip').value=='tp'){say(n().tp,0);return 0}return 1}
+function act(a){var x=n();
+if(a=='uv'){if(chk())$('fv').click()}
+else if(a=='up'){if(chk())$('fi').click()}
+else if(a=='ga'){$('gcard').scrollIntoView({behavior:'smooth'})}
+else if(a=='cp'){if(!hasV){say(x.nof,0);return}var c=document.createElement('canvas');c.width=vd.videoWidth;c.height=vd.videoHeight;try{c.getContext('2d').drawImage(vd,0,0);G.push(c.toDataURL('image/jpeg',0.85));gal();say(x.cap,1)}catch(e){say(x.err,0)}}
+else if(a=='rs'){$('rc').click()}
+else say(x.soon,0)}
+function gal(){$('gal').innerHTML=G.map(function(u,i){return '<img src="'+u+'" data-i="'+i+'">'}).join('');
+document.querySelectorAll('#gal img').forEach(function(e){e.onclick=function(){showImg(G[+e.dataset.i])}});tagset()}
+function showImg(u){hasV=0;vd.pause();vd.style.display='none';im.style.display='block';im.src=u;$('pv').classList.add('has')}
+im.onload=function(){info=im.naturalWidth+' × '+im.naturalHeight;tagset()};
+function pick(f){if(f.size>200*1048576){say(n().big,0);return 0}return 1}
+$('fv').onchange=function(){var f=this.files[0];if(!f||!pick(f))return;
+vd.onloadedmetadata=function(){hasV=1;DUR=Math.max(2,vd.duration||60);$('tin').max=DUR-1;$('tout').max=DUR;$('tin').value=0;$('tout').value=DUR;$('seek').value=0;im.style.display='none';vd.style.display='block';$('pv').classList.add('has');info=vd.videoWidth+' × '+vd.videoHeight;segs=[[0,DUR,1]];tagset();times();say(n().ok+($('clip').value=='unk'?' '+n().unk:''),1)};
+vd.onerror=function(){say(n().err,0)};vd.src=URL.createObjectURL(f);this.value=''};
+$('fi').onchange=function(){[].slice.call(this.files).forEach(function(f){if(pick(f))G.push(URL.createObjectURL(f))});if(G.length){gal();showImg(G[G.length-1]);say(n().ok,1)}this.value=''};
+var op=$('play').onclick,os=$('seek').oninput;
+$('play').onclick=function(){if(!hasV){op.call(this);return}if(vd.paused){if(vd.currentTime>=+$('tout').value-0.1||vd.currentTime<+$('tin').value)vd.currentTime=+$('tin').value;vd.play()}else vd.pause()};
+$('seek').oninput=function(){if(hasV)vd.currentTime=+this.value;os.call(this)};
+vd.onplay=function(){$('play').textContent='❚❚'};vd.onpause=function(){$('play').textContent='▶'};
+vd.ontimeupdate=function(){segs.forEach(function(g){if(!g[2]&&vd.currentTime>=g[0]&&vd.currentTime<g[1])vd.currentTime=g[1]});if(vd.currentTime>=+$('tout').value)vd.pause();$('seek').value=vd.currentTime;times()};
+$('fmt').onchange=function(){var v=this.value,p=$('pv');p.style.aspectRatio=v.replace(':','/');p.style.maxWidth=v=='9:16'?'50%':(v=='1:1'?'75%':'');p.style.margin='0 auto'};
+var segs=[[0,60,1]],toon=0;
+N.bn.h_cut='কাটাকাটি (স্প্লিট ও ডিলিট)';N.bn.sp='প্লেহেডে কাটুন';N.bn.spr='কাট রিসেট';N.bn.kp='ফেরান';N.bn.dl='বাদ দিন';N.bn.tot='মোট রাখা:';N.bn.h_sty='ভিডিও স্টাইল';N.bn.s0='অরিজিনাল';N.bn.s1='কার্টুন';N.bn.sn='কার্টুন একটি সরল ভিজ্যুয়াল ফিল্টার। এটি কপিরাইট বা মালিকানা বদলায় না: অন্যের ভিডিওতে অনুমতি লাগবেই। আসল AI কার্টুন রূপান্তর পরের ধাপে।';N.bn.sty='স্টাইল';N.bn.styn='স্টাইল বদলালেও মূল ফুটেজের অধিকার যাচাই লাগবে';N.bn.mn='কমপক্ষে ১টি অংশ রাখতে হবে।';N.bn.nosp='এখানে কাটা যাবে না।';
+N.en.h_cut='Cut (split & delete)';N.en.sp='Split at playhead';N.en.spr='Reset cuts';N.en.kp='Restore';N.en.dl='Remove';N.en.tot='Kept:';N.en.h_sty='Video Style';N.en.s0='Original';N.en.s1='Cartoon';N.en.sn='Cartoon is a simple visual filter. It does not change copyright or ownership: using it on someone else’s video still needs permission. Real AI cartoon conversion comes in a later phase.';N.en.sty='Style';N.en.styn='Changing the style does not remove the need to verify rights to the source footage';N.en.mn='At least one part must be kept.';N.en.nosp='Cannot split here.';
+function cur(){return hasV?vd.currentTime:+$('seek').value}
+function lab(){var x=n();$('h_cut').textContent=x.h_cut;$('sp').textContent='✂ '+x.sp;$('spr').textContent=x.spr;$('h_sty').textContent=x.h_sty;$('s0').textContent=x.s0;$('s1').textContent=x.s1;$('sn').textContent=x.sn;segr()}
+function segr(){var s='',l='',k=0,c=0;segs.forEach(function(g,i){if(g[2]){k+=g[1]-g[0];c++}s+='<i class="'+(g[2]?'k':'d')+'" style="left:'+g[0]/DUR*100+'%;width:'+(g[1]-g[0])/DUR*100+'%"></i>';l+='<div class="sg"><span>'+fmt(g[0])+' – '+fmt(g[1])+'</span><button class="sm" data-i="'+i+'">'+(g[2]?'✂ '+n().dl:'↩ '+n().kp)+'</button></div>'});
+$('sb').innerHTML=s;$('sl2').innerHTML=l;$('kt').textContent=n().tot+' '+fmt(k);
+document.querySelectorAll('#sl2 button').forEach(function(b){b.onclick=function(){var g=segs[+b.dataset.i];var kept=segs.filter(function(q){return q[2]}).length;if(g[2]&&kept<2){say(n().mn,0);return}g[2]=g[2]?0:1;segr()}})}
+$('sp').onclick=function(){var t=cur();for(var i=0;i<segs.length;i++){var g=segs[i];if(t>g[0]+0.3&&t<g[1]-0.3){segs.splice(i,1,[g[0],t,g[2]],[t,g[1],g[2]]);segr();return}}say(n().nosp,0)};
+$('spr').onclick=function(){segs=[[0,DUR,1]];segr()};
+function sty(v){if(v&&$('clip').value=='tp'){say(n().tp,0);return}toon=v;$('s0').classList.toggle('on',!v);$('s1').classList.toggle('on',!!v);look();$('out').innerHTML=''}
+$('s0').onclick=function(){sty(0)};$('s1').onclick=function(){sty(1)};
+build();
+</script>
+</body>
+</html>

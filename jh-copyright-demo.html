@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JH AI Creator — কপিরাইট সেফটি ডেমো</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f5fb;--card:#fff;--tx:#14163a;--mu:#5d6086;--bd:#e2e0f0;--pu:#6d3fd6;--te:#0fa3a3;--g:#12805c;--gb:#dcf5ea;--y:#8a5a00;--yb:#fff0c9;--r:#b3261e;--rb:#fde0de}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0f2b;--card:#161a40;--tx:#eeeefc;--mu:#a3a6d0;--bd:#2b2f61;--pu:#a98bff;--te:#3fd0c9;--g:#5fe0b0;--gb:#0f3a2d;--y:#ffd36b;--yb:#3d3010;--r:#ff9a93;--rb:#40181a}}
+:root[data-theme="dark"]{--bg:#0d0f2b;--card:#161a40;--tx:#eeeefc;--mu:#a3a6d0;--bd:#2b2f61;--pu:#a98bff;--te:#3fd0c9;--g:#5fe0b0;--gb:#0f3a2d;--y:#ffd36b;--yb:#3d3010;--r:#ff9a93;--rb:#40181a}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Noto Sans Bengali","Segoe UI",sans-serif}
+.w{max-width:720px;margin:0 auto;padding:16px}
+header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#1b1f5e,#6d3fd6);color:#3fd0c9;display:grid;place-items:center;font-weight:800}
+h1{font-size:18px;margin:0}.sub{color:var(--mu);font-size:12px}
+.sp{flex:1}button{font:inherit;cursor:pointer}
+.lang{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:9px;padding:6px 10px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px}
+h2{font-size:15px;margin:0 0 4px}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px}
+.tab{white-space:nowrap;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:999px;padding:7px 14px}
+.tab.on{background:var(--pu);color:#fff;border-color:var(--pu)}
+.row{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--bd)}
+.row:first-of-type{border-top:0}
+.info{flex:1;min-width:0}.nm{font-weight:600}.mt{font-size:12px;color:var(--mu)}
+select{width:100%;margin-top:6px;padding:8px;border-radius:9px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
+.b{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:2px 9px}
+.G{background:var(--gb);color:var(--g)}.Y{background:var(--yb);color:var(--y)}.R{background:var(--rb);color:var(--r)}
+.cta{width:100%;background:linear-gradient(90deg,#4b2bb0,#6d3fd6);color:#fff;border:0;border-radius:12px;padding:13px;font-weight:700;margin-bottom:12px}
+.res{border-radius:16px;padding:14px;margin-bottom:12px}
+.res.G{background:var(--gb);color:var(--g)}.res.Y{background:var(--yb);color:var(--y)}.res.R{background:var(--rb);color:var(--r)}
+.res h2{font-size:17px}.res ul{margin:8px 0 0;padding-left:18px}.res li{margin:3px 0}
+.warn{border-left:4px solid var(--te)}
+.disc{font-size:12px;color:var(--mu);text-align:center;margin:8px 0 20px}
+.plat{border:1px solid var(--bd);border-radius:12px;padding:10px;margin-top:8px}
+.hid{display:none}
+.tl{font-size:12px;color:var(--mu);margin:2px 0}
+</style>
+</head>
+<body>
+<div class="w">
+<header><div class="logo">JH</div><div><h1>JH AI Creator</h1><div class="sub" id="t_sub"></div></div><div class="sp"></div><button class="lang" id="lang">EN</button></header>
+<div class="card warn"><b id="t_demo"></b></div>
+<div class="tabs"><button class="tab on" data-t="rev" id="tb_rev"></button><button class="tab" data-t="plat" id="tb_plat"></button><button class="tab" data-t="disp" id="tb_disp"></button></div>
+
+<section id="rev">
+<div class="card"><h2 id="t_assets"></h2><div class="mt" id="t_hint"></div><div id="list"></div></div>
+<div class="card"><h2 id="t_pf"></h2><select id="pf"></select></div>
+<button class="cta" id="run"></button>
+<div id="out"></div>
+</section>
+
+<section id="plat" class="hid"><div id="platlist"></div></section>
+
+<section id="disp" class="hid">
+<div class="card"><h2 id="t_dh"></h2><div class="mt" id="t_dp"></div></div>
+<div class="card"><h2 id="t_ds"></h2><ol id="steps"></ol><div class="mt" id="t_dn"></div></div>
+</section>
+
+<div class="disc" id="t_disc"></div>
+</div>
+<script>
+var L='bn';
+var T={
+bn:{sub:'কপিরাইট সেফটি ডেমো',demo:'ডেমো মোড: নিচের অ্যাসেটগুলো নমুনা ডেটা, আসল ইউজার কনটেন্ট নয়। এটি ঝুঁকি মূল্যায়ন, আইনি নিশ্চয়তা নয়।',
+rev:'এক্সপোর্ট রিভিউ',plat:'প্ল্যাটফর্ম প্রোফাইল',disp:'ডিসপিউট সহায়ক',assets:'অ্যাসেট ও লাইসেন্স',hint:'প্রতিটি অ্যাসেটের লাইসেন্স অবস্থা বদলে দেখুন।',pf:'প্ল্যাটফর্ম',run:'কপিরাইট রিভিউ চালান',
+G:'গ্রিন',Y:'ইয়েলো',R:'রেড',
+gt:'গ্রিন: প্রাপ্ত তথ্য আপনার প্রকাশের অধিকার সমর্থন করে।',yt:'ইয়েলো: কিছু লাইসেন্স/মালিকানা তথ্য অতিরিক্ত যাচাই দরকার।',rt:'রেড: জানা অননুমোদিত বা নিষিদ্ধ কনটেন্ট। সমাধান না হওয়া পর্যন্ত এক্সপোর্ট ব্লক।',
+blocked:'ব্লকড অ্যাসেট',verify:'যাচাই দরকার',ok:'ঠিক আছে',
+disc:'JH AI Creator কখনো ১০০% কপিরাইট-ফ্রি বা ক্লেইম-মুক্ত হওয়ার নিশ্চয়তা দেয় না।',
+dh:'কপিরাইট ক্লেইম পেলে',dp:'সহায়কটি শুধু বাস্তব তথ্যভিত্তিক সাহায্য করে। মিথ্যা মালিকানা দাবি বা বিভ্রান্তিকর আপিল তৈরি করে না।',
+ds:'ধাপসমূহ',dn:'আপনার বৈধ অধিকার না থাকলে আপিল না করে কনটেন্ট সরিয়ে নিন বা লাইসেন্স নিন।',
+st:['ক্লেইমে উল্লেখিত কনটেন্ট (অডিও/ভিডিও অংশ ও সময়) চিহ্নিত করুন','প্রজেক্টের কোন অ্যাসেট সেটি, তা খুঁজে বের করুন','সংরক্ষিত লাইসেন্স, রশিদ বা অনুমতিপত্র দেখুন','প্রমাণ থাকলে তথ্যভিত্তিক আপিলের খসড়া করুন','প্রমাণ না থাকলে অ্যাসেট বদলান বা লাইসেন্স কিনুন'],
+dec:{own:'নিজের তৈরি',lic:'লাইসেন্সড',pd:'পাবলিক ডোমেইন',unk:'অযাচাইকৃত',bad:'নিষিদ্ধ/অননুমোদিত'},
+a:['ড্রামা ভিডিও ক্লিপ (AI)','ব্যাকগ্রাউন্ড মিউজিক','সাউন্ড ইফেক্ট','ভয়েসওভার','ব্র্যান্ড লোগো (ছবি)'],
+w:{music:'মিউজিক লাইসেন্স এই প্ল্যাটফর্ম/বাণিজ্যিক ব্যবহার কভার করে না',unk:'লাইসেন্স অযাচাইকৃত। "কপিরাইট-ফ্রি" লেবেল দেওয়া হয়নি',logo:'তৃতীয় পক্ষের ট্রেডমার্ক',voice:'ভয়েস অনুমতি যাচাই দরকার',att:'ক্রেডিট/অ্যাট্রিবিউশন দিতে হবে'},
+pl:{'Facebook Reels':'ট্রেন্ডিং মিউজিক লাইব্রেরি শুধু ব্যক্তিগত অ্যাকাউন্টে; ব্যবসায়িক পেজে সীমাবদ্ধ।','Facebook Videos':'লং ভিডিওতে তৃতীয় পক্ষের মিউজিকে ক্লেইম/মনিটাইজেশন সীমা হতে পারে।','TikTok':'কমার্শিয়াল অ্যাকাউন্টে শুধু Commercial Music Library-র মিউজিক ব্যবহার করুন।','YouTube Shorts':'Content ID ক্লেইম হতে পারে; লাইসেন্স রশিদ সংরক্ষণ করুন।','YouTube Videos':'মনিটাইজেশন চালু থাকলে বাণিজ্যিক লাইসেন্স আবশ্যক; Content ID ক্লেইম সম্ভব।'}},
+en:{sub:'Copyright Safety Demo',demo:'Demo mode: the assets below are sample data, not real user content. This is a risk assessment, not legal assurance.',
+rev:'Export Review',plat:'Platform Profiles',disp:'Dispute Assistant',assets:'Assets & Licenses',hint:'Change each asset’s license status to see the result.',pf:'Platform',run:'Run Copyright Review',
+G:'GREEN',Y:'YELLOW',R:'RED',
+gt:'GREEN: available evidence supports your right to publish.',yt:'YELLOW: license or ownership information needs additional verification.',rt:'RED: known unauthorized or prohibited content. Export is blocked until resolved.',
+blocked:'Blocked assets',verify:'Needs verification',ok:'OK',
+disc:'JH AI Creator never guarantees 100% copyright-free or claim-free publishing.',
+dh:'If you receive a copyright claim',dp:'The assistant only helps with factual information. It never creates false ownership claims or misleading appeals.',
+ds:'Steps',dn:'If you do not hold legitimate rights, do not appeal: remove the content or obtain a license.',
+st:['Identify the claimed content (audio/video part and timestamp)','Find the matching asset in your project','Locate stored licenses, receipts or permissions','If evidence exists, draft a factual appeal','If not, replace the asset or buy a license'],
+dec:{own:'Self-created',lic:'Licensed',pd:'Public domain',unk:'Unverified',bad:'Prohibited / unauthorized'},
+a:['Drama video clip (AI)','Background music','Sound effect','Voiceover','Brand logo (image)'],
+w:{music:'Music license does not cover this platform / commercial use',unk:'License unverified. Not labeled "copyright-free"',logo:'Third-party trademark',voice:'Voice permission needs verification',att:'Attribution required'},
+pl:{'Facebook Reels':'Trending music library is for personal accounts; restricted on business Pages.','Facebook Videos':'Third-party music in long videos may trigger claims or monetization limits.','TikTok':'Commercial accounts should use only Commercial Music Library tracks.','YouTube Shorts':'Content ID claims are possible; keep license receipts.','YouTube Videos':'Monetized videos need commercial licenses; Content ID claims are possible.'}}
+};
+var types=['video','music','sfx','voice','logo'];
+var defs=['own','lic','unk','own','bad'];
+var state=defs.slice();
+var pfs=['Facebook Reels','Facebook Videos','TikTok','YouTube Shorts','YouTube Videos'];
+function $(i){return document.getElementById(i)}
+function badge(d){var c=d=='bad'?'R':(d=='unk'?'Y':'G');return '<span class="b '+c+'">'+T[L][c]+'</span>'}
+function render(){
+var t=T[L];document.documentElement.lang=L;
+$('t_sub').textContent=t.sub;$('t_demo').textContent=t.demo;$('tb_rev').textContent=t.rev;$('tb_plat').textContent=t.plat;$('tb_disp').textContent=t.disp;
+$('t_assets').textContent=t.assets;$('t_hint').textContent=t.hint;$('t_pf').textContent=t.pf;$('run').textContent=t.run;$('t_disc').textContent=t.disc;
+$('t_dh').textContent=t.dh;$('t_dp').textContent=t.dp;$('t_ds').textContent=t.ds;$('t_dn').textContent=t.dn;$('lang').textContent=L=='bn'?'EN':'বাংলা';
+$('steps').innerHTML=t.st.map(function(s){return '<li>'+s+'</li>'}).join('');
+var h='';
+for(var i=0;i<5;i++){
+h+='<div class="row"><div class="info"><div class="nm">'+t.a[i]+'</div><select data-i="'+i+'">'+Object.keys(t.dec).map(function(k){return '<option value="'+k+'"'+(state[i]==k?' selected':'')+'>'+t.dec[k]+'</option>'}).join('')+'</select></div>'+badge(state[i])+'</div>';}
+$('list').innerHTML=h;
+var cur=$('pf').value;$('pf').innerHTML=pfs.map(function(p){return '<option'+(p==cur?' selected':'')+'>'+p+'</option>'}).join('');
+$('platlist').innerHTML=pfs.map(function(p){return '<div class="card"><h2>'+p+'</h2><div class="mt">'+t.pl[p]+'</div></div>'}).join('');
+$('out').innerHTML='';
+document.querySelectorAll('select[data-i]').forEach(function(s){s.onchange=function(){state[+s.dataset.i]=s.value;var r=s.closest('.row');r.lastChild.outerHTML=badge(s.value);$('out').innerHTML=''}});
+}
+function review(){
+var t=T[L],pf=$('pf').value,bad=[],ver=[],ok=[];
+state.forEach(function(d,i){var n=t.a[i],w=[];
+if(d=='bad')bad.push(n+': '+(types[i]=='logo'?t.w.logo:t.dec.bad));
+else if(d=='unk'){ver.push(n+': '+(types[i]=='music'?t.w.music:t.w.unk))}
+else if(d=='lic'&&types[i]=='music'&&pf=='TikTok'){ver.push(n+': '+t.w.music)}
+else if(d=='lic'&&types[i]=='voice'){ver.push(n+': '+t.w.voice)}
+else ok.push(n+': '+t.ok)});
+var c=bad.length?'R':(ver.length?'Y':'G');
+var h='<div class="res '+c+'"><h2>'+t[c]+'</h2><div>'+t[c.toLowerCase()+'t']+'</div>';
+if(bad.length)h+='<b>'+t.blocked+'</b><ul>'+bad.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
+if(ver.length)h+='<b>'+t.verify+'</b><ul>'+ver.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
+h+='<div class="tl" style="margin-top:8px">'+pf+': '+t.pl[pf]+'</div></div>';
+$('out').innerHTML=h;
+}
+$('run').onclick=review;
+$('lang').onclick=function(){L=L=='bn'?'en':'bn';render()};
+document.querySelectorAll('.tab').forEach(function(b){b.onclick=function(){
+document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('on',x==b)});
+['rev','plat','disp'].forEach(function(s){$(s).classList.toggle('hid',s!=b.dataset.t)})}});
+render();
+</script>
+</body>
+</html>

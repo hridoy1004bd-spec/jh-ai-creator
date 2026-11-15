@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JH AI Creator — Phase 2 ফাইল তালিকা</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#0f1514;--card:#16201e;--bd:#2a3a37;--tx:#e8f1ef;--mu:#9bb0ab;--te:#6cc4ae;--tb:#13342c;--or:#e7a54a;--ob:#3a2a12;--pu:#a98bff}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f3f7f6;--card:#fff;--bd:#d5e2df;--tx:#12201d;--mu:#587069;--te:#0b7a64;--tb:#d9f2ea;--or:#8a5a00;--ob:#fff0c9;--pu:#6d3fd6}}
+:root[data-theme="light"]{--bg:#f3f7f6;--card:#fff;--bd:#d5e2df;--tx:#12201d;--mu:#587069;--te:#0b7a64;--tb:#d9f2ea;--or:#8a5a00;--ob:#fff0c9;--pu:#6d3fd6}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Noto Sans Bengali","Segoe UI",sans-serif}
+.w{max-width:560px;margin:0 auto;padding:14px}
+h1{font-size:18px;margin:4px 0 2px}.mu{color:var(--mu);font-size:13px}
+.note{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:14px;margin:12px 0}
+.note ul{margin:6px 0 0;padding-left:20px}.note li{margin:3px 0}
+.item{background:var(--card);border:1px solid var(--bd);border-radius:18px;margin-bottom:10px;overflow:hidden}
+.top{display:flex;align-items:center;gap:10px;padding:12px}
+.n{width:22px;text-align:center;font-weight:700;color:var(--mu)}
+.p{flex:1;min-width:0;font:13px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all}
+.bd{font-size:11px;font-weight:700;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.bd.new{background:var(--tb);color:var(--te)}.bd.chg{background:var(--ob);color:var(--or)}
+button{font:inherit;cursor:pointer;border-radius:12px;padding:8px 12px;border:1px solid var(--bd);background:transparent;color:var(--te)}
+button.cp{background:var(--te);border-color:var(--te);color:#06201a;font-weight:700}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) button.cp{color:#fff}}
+.det{display:none;border-top:1px solid var(--bd);padding:12px}
+.item.open .det{display:block}
+.det h3{font-size:12px;margin:0 0 2px;color:var(--mu);font-weight:600}
+.det p{margin:0 0 10px;font-size:14px}
+pre{margin:0;padding:10px;border-radius:12px;background:var(--bg);border:1px solid var(--bd);overflow-x:auto;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;max-height:340px}
+.row2{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.ph{font-size:11px;color:var(--pu);font-weight:700}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--te);color:#06201a;padding:8px 16px;border-radius:999px;font-weight:700;display:none;z-index:5}
+.foot{font-size:12px;color:var(--mu);margin:14px 0 30px;text-align:center}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>JH AI Creator · Phase 2 ফাইল তালিকা</h1>
+<div class="mu">প্রস্তাবিত ফাইল ও কেন দরকার। কপি বাটনে কোড (না থাকলে পাথ) কপি হয়, দেখুন বাটনে বিস্তারিত।</div>
+<div class="note"><b>গুরুত্বপূর্ণ</b>
+<ul>
+<li>এটি শুধু <b>প্রস্তাব</b>। আপনার অনুমতির আগে কোনো ফাইল তৈরি বা পরিবর্তন হয়নি।</li>
+<li>রিপোজিটরি এখনো পাইনি, তাই কোনটি আসলে "পরিবর্তিত" হবে তা <b>যাচাই বাকি</b>। রিপো দেখার পর ব্যাজ ঠিক হবে।</li>
+<li>ডাটাবেস স্কিমা পরিবর্তন আলাদা অনুমোদন ছাড়া হবে না।</li>
+</ul></div>
+<div id="list"></div>
+<div class="foot">জানা সীমা: কোডগুলো স্টার্টার স্কেলেটন, এখনো টেস্ট হয়নি।</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+var F=[
+{p:'src/features/editor/types.ts',b:'new',ph:'Phase 2',why:'পুরো এডিটরের ডেটা মডেল: প্রজেক্ট, ট্র্যাক, ক্লিপ। কাট বা ফিল্টার মূল ফাইল বদলায় না, শুধু ক্লিপের মান বদলায় (নন-ডেস্ট্রাক্টিভ)। একই মডেল পরে FFmpeg রেন্ডারে যাবে।',
+code:`export type TrackKind = 'video' | 'audio' | 'text';
+export type SourceDeclaration =
+  | 'own' | 'ai' | 'licensed' | 'public_domain'
+  | 'third_party' | 'unverified';
+
+export interface ClipEffects {
+  brightness: number; // 100 = original
+  contrast: number;
+  saturation: number;
+  zoom: number;       // 100..200
+}
+
+export interface Clip {
+  id: string;
+  trackId: string;
+  assetId: string;
+  start: number;      // timeline position (sec)
+  inPoint: number;    // source in (sec)
+  outPoint: number;   // source out (sec)
+  effects: ClipEffects;
+  declaration: SourceDeclaration;
+  text?: string;      // text/subtitle clips
+}
+
+export interface Track {
+  id: string;
+  kind: TrackKind;
+  clipIds: string[];
+  muted: boolean;
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  aspect: '16:9' | '9:16' | '1:1';
+  fps: 24 | 30 | 60;
+  tracks: Track[];
+  clips: Record<string, Clip>;
+  version: number;
+}`},
+{p:'src/features/editor/history.ts',b:'new',ph:'Phase 2',why:'Undo/Redo। প্রতিটি এডিট একটি নতুন Project স্ন্যাপশট, সর্বোচ্চ ১০০টি। স্লাইডার টানার সময় প্রতি পিক্সেলে নয়, ছাড়ার সময় একবার commit করতে হবে।',
+code:`export interface History<T> {
+  past: T[];
+  present: T;
+  future: T[];
+}
+
+const LIMIT = 100;
+
+export const init = <T>(present: T): History<T> =>
+  ({ past: [], present, future: [] });
+
+export function commit<T>(h: History<T>, next: T): History<T> {
+  if (next === h.present) return h;
+  return {
+    past: [...h.past, h.present].slice(-LIMIT),
+    present: next,
+    future: [],
+  };
+}
+
+export function undo<T>(h: History<T>): History<T> {
+  if (!h.past.length) return h;
+  const prev = h.past[h.past.length - 1];
+  return {
+    past: h.past.slice(0, -1),
+    present: prev,
+    future: [h.present, ...h.future],
+  };
+}
+
+export function redo<T>(h: History<T>): History<T> {
+  if (!h.future.length) return h;
+  const [next, ...rest] = h.future;
+  return { past: [...h.past, h.present], present: next, future: rest };
+}`},
+{p:'src/features/editor/EditorStudio.tsx',b:'new',ph:'Phase 2',why:'ডেমো HTML-এর পোর্ট: প্রিভিউ, ট্রিম, কালার, জুম, স্প্লিট/ডিলিট, গ্যালারি। শুধু সেই বাটন থাকবে যেগুলো সত্যি কাজ করে। AI বাটন Provider যুক্ত না হওয়া পর্যন্ত "পরে আসবে" লেবেলসহ।'},
+{p:'src/features/editor/Timeline.tsx',b:'new',ph:'Phase 2',why:'মাল্টি-ট্র্যাক টাইমলাইন (ভিডিও, অডিও, টেক্সট), টাচ-ফ্রেন্ডলি স্প্লিট ও ড্র্যাগ। প্রথমে ভিডিও ট্র্যাক, তারপর বাকিগুলো।'},
+{p:'src/lib/copyright/review.ts',b:'new',ph:'Phase 5 (নিয়ম এখনই)',why:'GREEN/YELLOW/RED নিয়ম ইঞ্জিন। ফিল্টার, স্পিড বা ক্রপ বদলালে স্তর বদলায় না। শুধু ঘোষণা ও প্রমাণ দেখে। RED হলে এক্সপোর্ট ব্লক। সার্ভারেও আবার যাচাই করতে হবে, শুধু ব্রাউজারে নয়।',
+code:`import type { Project, SourceDeclaration } from '../../features/editor/types';
+
+export type Level = 'GREEN' | 'YELLOW' | 'RED';
+export interface Finding { clipId: string; level: Level; reason: string }
+
+// NOTE: crop / speed / color / filter edits NEVER change the result.
+const NEEDS_EVIDENCE: SourceDeclaration[] = ['licensed', 'public_domain'];
+
+export function reviewProject(p: Project, evidence: Set<string>) {
+  const findings: Finding[] = [];
+  for (const c of Object.values(p.clips)) {
+    if (c.declaration === 'third_party') {
+      findings.push({ clipId: c.id, level: 'RED',
+        reason: 'Third-party content without permission' });
+    } else if (c.declaration === 'unverified') {
+      findings.push({ clipId: c.id, level: 'YELLOW',
+        reason: 'Source unverified' });
+    } else if (NEEDS_EVIDENCE.includes(c.declaration) && !evidence.has(c.assetId)) {
+      findings.push({ clipId: c.id, level: 'YELLOW',
+        reason: 'License evidence missing' });
+    }
+  }
+  const level: Level = findings.some(f => f.level === 'RED') ? 'RED'
+    : findings.length ? 'YELLOW' : 'GREEN';
+  // Internal risk assessment, not a legal guarantee.
+  return { level, findings, exportAllowed: level !== 'RED' };
+}`},
+{p:'src/lib/ai/provider.ts',b:'new',ph:'Phase 4 (ইন্টারফেস এখনই)',why:'প্রোভাইডার-নিরপেক্ষ অ্যাডাপ্টার। নতুন AI প্রোভাইডার যুক্ত করতে শুধু একটি ফাইল লাগবে। API কী শুধু সার্ভার env-এ থাকবে। এই ফাইল ক্লায়েন্ট কম্পোনেন্টে ইমপোর্ট করা যাবে না।',
+code:`export type JobType =
+  | 'text_to_video' | 'image_to_video' | 'cartoon'
+  | 'bg_removal' | 'enhance' | 'storyboard'
+  | 'script' | 'captions' | 'tts';
+
+export interface AiJobRequest {
+  type: JobType;
+  prompt?: string;
+  assetUrl?: string;
+  options?: Record<string, unknown>;
+}
+
+export interface AiJobStatus {
+  id: string;
+  state: 'queued' | 'processing' | 'completed' | 'failed' | 'cancelled';
+  outputUrl?: string;
+  error?: string;
+}
+
+export interface AiProvider {
+  id: string;
+  supports: JobType[];
+  submit(req: AiJobRequest): Promise<{ externalId: string }>;
+  poll(externalId: string): Promise<AiJobStatus>;
+  cancel?(externalId: string): Promise<void>;
+}
+
+// SERVER ONLY. Keys come from server env, never from the client.
+export const registry = new Map<string, AiProvider>();`},
+{p:'src/lib/plans/config.ts',b:'new',ph:'Phase 6',why:'Free/Paid সীমা (ক্রেডিট, রেজোলিউশন, স্টোরেজ) কোডে নয়, ডাটাবেসের admin_settings থেকে পড়বে। কোড শুধু ডিফল্ট Free সীমা রাখবে। পেমেন্ট চালু হবে না যতক্ষণ অ্যাডমিন কনফিগার না করে।'},
+{p:'src/i18n/messages.ts',b:'chg',ph:'Phase 2',why:'ডেমোর বাংলা/English টেক্সট এখানে আসবে। আগে থেকে i18n থাকলে সেটা বাড়াব, নতুন সিস্টেম নয়। রিপো দেখে নিশ্চিত হব।'},
+{p:'supabase/migrations/…_timeline_projects.sql',b:'new',ph:'Phase 2–3 (আলাদা অনুমোদন)',why:'projects, project_assets, timeline_tracks, timeline_clips টেবিল ও RLS। বিদ্যমান স্কিমা মিলিয়ে দেখার আগে লেখা হবে না এবং আপনার স্পষ্ট অনুমোদন ছাড়া চালানো হবে না।'},
+{p:'package.json',b:'chg',ph:'Phase 3',why:'Phase 2-তে নতুন ডিপেন্ডেন্সি লাগবে না বলে আশা। Phase 3-তে ffmpeg.wasm যোগ হতে পারে। শুধু রিপো যাচাইয়ের পর এবং অনুমোদনসহ।'}
+];
+function toast(t){var e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(function(){e.style.display='none'},1500)}
+function copy(s){
+try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(s).then(function(){toast('কপি হয়েছে')},function(){fb(s)});return}}catch(e){}
+fb(s)}
+function fb(s){var a=document.createElement('textarea');a.value=s;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}document.body.removeChild(a);toast(ok?'কপি হয়েছে':'কপি হয়নি, দেখুন থেকে নিজে কপি করুন')}
+var L=document.getElementById('list');
+F.forEach(function(f,i){
+var d=document.createElement('div');d.className='item';
+var top=document.createElement('div');top.className='top';
+var n=document.createElement('div');n.className='n';n.textContent=i+1;
+var p=document.createElement('div');p.className='p';p.textContent=f.p;
+var b=document.createElement('span');b.className='bd '+f.b;b.textContent=f.b=='new'?'নতুন ফাইল':'পরিবর্তিত?';
+var c=document.createElement('button');c.className='cp';c.textContent='কপি';c.onclick=function(){copy(f.code||f.p)};
+var v=document.createElement('button');v.textContent='দেখুন';v.onclick=function(){d.classList.toggle('open');v.textContent=d.classList.contains('open')?'বন্ধ':'দেখুন'};
+[n,p,b,c,v].forEach(function(x){top.appendChild(x)});
+var det=document.createElement('div');det.className='det';
+var h1=document.createElement('h3');h1.textContent='ধাপ';var q1=document.createElement('p');q1.className='ph';q1.textContent=f.ph;
+var h2=document.createElement('h3');h2.textContent='কেন দরকার';var q2=document.createElement('p');q2.textContent=f.why;
+det.appendChild(h1);det.appendChild(q1);det.appendChild(h2);det.appendChild(q2);
+if(f.code){var h3=document.createElement('h3');h3.textContent='স্টার্টার কোড (টেস্ট হয়নি)';var pre=document.createElement('pre');pre.textContent=f.code;det.appendChild(h3);det.appendChild(pre)}
+d.appendChild(top);d.appendChild(det);L.appendChild(d)});
+</script>
+</body>
+</html>
